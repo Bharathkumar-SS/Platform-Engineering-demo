@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: us-east-2
-  ECR_REPOSITORY: platform-demo
+  ECR_REPOSITORY: demo/platform-engineering-demo
   EKS_CLUSTER_NAME: platform-demo-cluster
 
 jobs:
