@@ -34,17 +34,20 @@ jobs:
         aws ecr get-login-password --region $AWS_REGION | \
         docker login --username AWS --password-stdin 462016340186.dkr.ecr.$AWS_REGION.amazonaws.com
 
+    - name: Set image tag
+      run: echo "IMAGE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
+
     - name: Build Docker image
       run: |
-        docker build -t $ECR_REPOSITORY .
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
 
     - name: Tag image
       run: |
-        docker tag $ECR_REPOSITORY:latest 462016340186.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+        docker tag $ECR_REPOSITORY:$IMAGE_TAG 462016340186.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Push image
       run: |
-        docker push 462016340186.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+        docker push 462016340186.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Update kubeconfig
       run: |
