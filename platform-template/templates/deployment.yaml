@@ -13,7 +13,11 @@ spec:
     metadata:
       labels:
         app: {{ .Values.labels.app }}
+      annotations:
+        redeploy: "{{ now | unixEpoch }}"
     spec:
+      nodeSelector:
+        karpenter.sh/nodepool: general-purpose
       containers:
         - name: {{ .Values.labels.app }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
