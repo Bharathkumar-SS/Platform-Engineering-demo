@@ -50,7 +50,9 @@ jobs:
       run: |
         aws eks update-kubeconfig --region $AWS_REGION --name $EKS_CLUSTER_NAME
 
-    - name: Deploy to EKS
+    - name: Install Helm
+      uses: azure/setup-helm@v4
+
+    - name: Deploy using Helm
       run: |
-        kubectl apply -f eks-deploy/
-        kubectl rollout restart deployment platform-demo
+        helm upgrade --install platform-demo ./platform-template

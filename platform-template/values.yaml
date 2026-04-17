@@ -1,0 +1,33 @@
+app:
+  name: platform-demo
+  port: 3000
+
+replicaCount: 2
+
+image:
+  repository: 462016340186.dkr.ecr.us-east-2.amazonaws.com/demo/platform-engineering-demo
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 3000
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+
+nameOverride: ""
+fullnameOverride: ""
+
+labels:
+  app: platform-demo
+
+annotations:
+  service:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
