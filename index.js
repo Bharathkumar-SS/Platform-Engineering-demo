@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello from Platform Engineering New cicd release! hohoooo🚀');
+  res.send('Hello from Platform Engineering New cicd release! hohoooo, helm added update🚀');
 });
 
 app.listen(3000, () => {
