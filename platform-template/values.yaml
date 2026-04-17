@@ -2,7 +2,7 @@ app:
   name: platform-demo
   port: 3000
 
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: 462016340186.dkr.ecr.us-east-2.amazonaws.com/demo/platform-engineering-demo
