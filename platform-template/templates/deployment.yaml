@@ -1,28 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.labels.app }}
+  name: {{ .Values.app.name }}
+  namespace: {{ index .Values.environments .Values.env "namespace" }}
   labels:
-    app: {{ .Values.labels.app }}
+    app: {{ .Values.app.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.labels.app }}
+      app: {{ .Values.app.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.labels.app }}
+        app: {{ .Values.app.name }}
       annotations:
         redeploy: "{{ now | unixEpoch }}"
     spec:
       nodeSelector:
-        karpenter.sh/nodepool: general-purpose
+{{ toYaml .Values.nodeSelector | indent 8 }}
       containers:
-        - name: {{ .Values.labels.app }}
+        - name: {{ .Values.app.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.service.targetPort }}
+            - containerPort: {{ .Values.app.port }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}

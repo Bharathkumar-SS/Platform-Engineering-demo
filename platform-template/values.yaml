@@ -5,14 +5,22 @@ app:
 replicaCount: 1
 
 image:
-  repository: 462016340186.dkr.ecr.us-east-2.amazonaws.com/demo/platform-engineering-demo
-  tag: latest
+  repository: ""
+  tag: ""
   pullPolicy: IfNotPresent
 
 service:
   type: LoadBalancer
   port: 80
   targetPort: 3000
+
+env: dev
+
+environments:
+  dev:
+    namespace: dev
+  prod:
+    namespace: prod
 
 resources:
   requests:
@@ -22,11 +30,8 @@ resources:
     cpu: "200m"
     memory: "256Mi"
 
-nameOverride: ""
-fullnameOverride: ""
-
-labels:
-  app: platform-demo
+nodeSelector:
+  karpenter.sh/nodepool: general-purpose
 
 annotations:
   service:
