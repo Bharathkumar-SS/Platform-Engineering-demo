@@ -58,4 +58,5 @@ jobs:
 
     - name: Deploy using Helm
       run: |
-        helm upgrade --install platform-demo ./platform-template
+        helm upgrade --install platform-demo ./platform-template \
+          --set image.tag=$IMAGE_TAG
