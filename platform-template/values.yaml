@@ -36,3 +36,7 @@ nodeSelector:
 annotations:
   service:
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+
+ingress:
+  enabled: true
+  scheme: internet-facing
